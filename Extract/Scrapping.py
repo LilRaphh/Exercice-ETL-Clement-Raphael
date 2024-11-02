@@ -10,6 +10,18 @@ class Scrapping:
         self.link = "https://www.infoclimat.fr/observations-meteo/temps-reel/rennes-st-jacques/07130.html"
 
     def scrap_site(self) -> list:
+        """
+        Va chercher des informations sur le site infoclimat afin de récupéré les données en temps réél de la météo de rennes. 
+        Récypère toutes les data de la page active. 
+
+        Scrap:
+        - Selenium
+
+        Returns:
+        - Liste des colones du tableau 
+        - Liste des datas 
+        """
+
         self.driver.get(self.link)
 
         tab =  self.driver.find_element(By.ID, 'resptable-releves')
@@ -33,6 +45,17 @@ class Scrapping:
         return col, data
     
     def scrap_last_hour(self) -> list:
+        """
+        Va chercher des informations sur le site infoclimat afin de récupéré les données en temps réél de la météo de rennes. 
+        Récupère les datas de la dernière heure. 
+
+        Scrap:
+        - Selenium
+
+        Returns:
+        - Liste des datas de la dernière heure
+        """
+
         self.driver.get(self.link)
         tab =  self.driver.find_element(By.ID, 'resptable-releves')
         tbody = tab.find_element(By.TAG_NAME, 'tbody').find_element(By.TAG_NAME, 'tr')
