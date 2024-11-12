@@ -2,6 +2,7 @@ import pandas as pd
 from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
+import re
 
 class Scrapping:
 
@@ -30,13 +31,23 @@ class Scrapping:
 
         col = [i.text for i in thead]
 
+        col.append("Date")
+
         tbody = tab.find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
 
         data = []
         for tr in tbody:
             tbody_heur = tr.find_element(By.TAG_NAME, 'th')
+            tbody_date = tbody_heur.find_element(By.TAG_NAME, 'span').get_attribute('original-title')
+            date_match = re.search(r'\d{2}/\d{2}/\d{4}', tbody_date)
+            if date_match:
+                date = date_match.group()                
+            else:
+                date = ""
+
             data_temp = [i.text for i in tr.find_elements(By.TAG_NAME, 'td')]
             data_temp.insert(0, tbody_heur.text)
+            data_temp.append(date)
             data.append(data_temp)
 
         time.sleep(1)
