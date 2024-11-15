@@ -9,10 +9,11 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 from datetime import datetime, timedelta
 import locale
+import os
 
 class Scrapping:
 
-
+    
     def __init__(self):
 
         locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
@@ -32,7 +33,7 @@ class Scrapping:
         ]
 
     # Fonction pour initialiser le driver avec un User-Agent donné
-    def create_driver_with_user_agent(user_agent):
+    def create_driver_with_user_agent(self, user_agent):
 
         """
         Configuration du driver chrome pour optimiser les performances
@@ -55,9 +56,9 @@ class Scrapping:
         driver = webdriver.Chrome(options=chrome_options)
         return driver
 
-    def get_date(date_start) -> list:
+    def get_date(self, date_start) -> list:
         """
-        Recupère une liste de date à partir d'une date de début jusqu'a aujourd'hui
+        Recupère une liste de date à partir d'une date de début jusqu'à hier
 
         Args:
         - date_start -> Date de début 
@@ -66,12 +67,12 @@ class Scrapping:
         - dates -> liste de date 
         """
 
-        date = datetime.now()
-        date_start = datetime.strptime(date_start, "%Y-%m-%d %H:%M:%S")
+        date_now = datetime.now()
+        date_start = datetime.strptime(date_start, "%Y-%m-%d")
 
         dates = []
 
-        while date_start < date - timedelta(days=1):
+        while date_start < date_now - timedelta(days=1):
             dates.append(date_start)
             date_start += timedelta(days=1)
 
@@ -79,19 +80,17 @@ class Scrapping:
 
     def scrap_with_start_date(self, date_start):
         """
-        /!\ Processus long en fonction du nombre de date à parcourir /!\ 
 
-        Permet de récupérer toutes les données du sites à partir d'une date de début jusqu'à aujourd'hui
+        Permet de récupérer toutes les données du sites à partir d'une date de début jusqu'à hier
         
         Args:
-        - date_start (format: 2023-01-01 00:00:00) -> date de debut du processus de scraping 
+        - date_start (format: 2023-01-01) -> date de debut du processus de scraping 
 
         Return:
         - créer un csv avec toutes les données scrap
         - df -> Retourne le dataframe avec les données scrap 
         
         """
-
 
         # Liste pour stocker les données
         data = []
@@ -118,7 +117,6 @@ class Scrapping:
                     driver.get(f"https://www.infoclimat.fr/observations-meteo/archives/{jour}/{mois}/{annee}/rennes-st-jacques/07130.html",)
                     
                     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "resptable-releves")))
-
                     
                     # Essayer de trouver le tableau
                     tab = driver.find_element(By.ID, 'resptable-releves')
@@ -160,7 +158,7 @@ class Scrapping:
         
         df = pd.DataFrame(data, columns=col)
 
-        df.to_csv(f'../dataset/meteo_rennes_start_{dates[0].strftime("%d-%m-%Y")}.csv')
+        df.to_csv(f'./dataset/meteo_rennes_start_{dates[0].strftime("%d-%m-%Y")}.csv')
 
         return df
 
@@ -181,7 +179,7 @@ class Scrapping:
 
         driver.get(self.link)
 
-        tab =  self.driver.find_element(By.ID, 'resptable-releves')
+        tab =  driver.find_element(By.ID, 'resptable-releves')
 
         thead = tab.find_element(By.TAG_NAME, 'thead').find_element(By.TAG_NAME, 'tr').find_elements(By.TAG_NAME, 'th')
 
@@ -210,7 +208,7 @@ class Scrapping:
             data.append(data_temp)
 
         time.sleep(1)
-        self.driver.quit()
+        driver.quit()
 
         return col, data
     
