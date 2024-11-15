@@ -1,0 +1,23 @@
+# Ignorer les environnements virtuels
+env/
+venv/
+
+# Ignorer les fichiers de cache Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignorer les fichiers de logs et de debug
+*.log
+
+# Ignorer les fichiers de configuration de l'IDE
+.vscode/
+.idea/
+
+# Ignorer les fichiers de test coverage
+htmlcov/
+.coverage
+.tox/
+
+# Ignorer les fichiers créés par les tests
+*.testresult
