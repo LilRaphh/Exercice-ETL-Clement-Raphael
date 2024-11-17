@@ -142,6 +142,40 @@ Certaines fonctionnalités nécessitent des clés ou des configurations spécifi
    touch .env
    ```
 
+# 📜 Conclusion
+
+---
+
+L’application développée dans le cadre de ce projet met en lumière l’interaction entre les conditions météorologiques et les flux de passage en différents points de la ville de Rennes. Grâce à l’exploitation combinée de données issues d’un site météo scrappé et d’une API dédiée aux flux de passage, nous avons pu établir des liens de corrélation intéressants tout au long de l’année.
+
+En s’appuyant sur des techniques de web scraping et d’intégration d’API, l’application offre une analyse approfondie et quantifiée de la manière dont les variations climatiques influencent les déplacements urbains. Ces résultats peuvent fournir des insights précieux pour les gestionnaires urbains, les commerçants, ou toute entité cherchant à anticiper les comportements liés aux flux de population en fonction des conditions climatiques.
+
+Les visualisations générées permettent d’explorer ces corrélations de manière intuitive et interactive, ouvrant la voie à une meilleure compréhension des dynamiques urbaines. Ce projet pourrait également servir de base pour des développements futurs, tels que l’intégration de modèles prédictifs ou l’analyse de flux dans d’autres contextes géographiques.
+
+En conclusion, cette solution démontre comment des données disparates peuvent être combinées et analysées pour révéler des tendances utiles et exploitables. Elle représente une avancée vers une gestion des flux urbains plus proactive, tout en soulignant le rôle clé des conditions environnementales dans la planification et la prise de décision.
+
+🚧 Difficultés Rencontrées
+
+  texte
+
+
+## Amélioration future
+---
+  
+
+
+## Contributeurs
+
+  - Clément Metois (@Skyane) : Apprenti Data Scientist -**skayne.pro@gmail.com**-
+  - Colnot Raphaël (@LilRaphh) : Apprenti Data Scientist -**colnotraphael@gmail.com**-
+
+
+## Licence
+
+Ce projet a été réaslisé pour rendu en école.
+
+
+
 
 
 
