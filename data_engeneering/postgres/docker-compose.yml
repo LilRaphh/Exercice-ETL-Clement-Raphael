@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: RaphClemETL2024
       POSTGRES_DB: etl_db
     volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5433:5432
     networks:
@@ -35,4 +35,4 @@ volumes:
 
 networks:
   postgres-db-network:
-    driver: bridge
+    external: true

@@ -1,33 +1,80 @@
 version: '3.8'
-services:
-  airflow-webserver:
-    image: apache/airflow:2.7.1-python3.10
-    container_name: airflow-webserver
-    ports:
-      - "8080:8080"
-    environment:
-      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-      - AIRFLOW__CORE__LOAD_EXAMPLES=False
-    volumes:
-      - ./dags:/opt/airflow/dags
-      - ./logs:/opt/airflow/logs
-      - ./plugins:/opt/airflow/plugins
-    command: webserver
 
+services:
   airflow-scheduler:
-    image: apache/airflow:2.7.1-python3.10
+    image: apache/airflow:2.7.1
     container_name: airflow-scheduler
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:RaphClemETL2024@postgres:5432/etl_db
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
-    command: scheduler
     depends_on:
-      - airflow-webserver
+      - postgres
+    networks:
+      - airflow-network
+
+  airflow-webserver:
+    image: apache/airflow:2.7.1
+    container_name: airflow-webserver
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:RaphClemETL2024@postgres:5432/etl_db
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+    ports:
+      - 8080:8080
+    depends_on:
+      - airflow-scheduler
+    networks:
+      - airflow-network
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+
+  airflow-worker:
+    image: apache/airflow:2.7.1
+    container_name: airflow-worker
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:RaphClemETL2024@postgres:5432/etl_db
+    depends_on:
+      - airflow-scheduler
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    networks:
+      - airflow-network
 
   airflow-init:
-    image: apache/airflow:2.7.1-python3.10
+    image: apache/airflow:2.7.1
     container_name: airflow-init
-    command: bash -c "airflow db init && airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com"
+    entrypoint: ["airflow", "db", "upgrade"]
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:RaphClemETL2024@postgres:5432/etl_db
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    networks:
+      - airflow-network
     depends_on:
-      - airflow-webserver
+      - postgres
+
+networks:
+  airflow-network:
+    driver: bridge
+
+volumes:
+  airflow-logs:
+    driver: local
+  airflow-dags:
+    driver: local
+  airflow-plugins:
+    driver: local
