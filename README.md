@@ -69,7 +69,9 @@ Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votr
 ## **Étape 1 : Cloner le dépôt**
 Téléchargez le code source de ce projet depuis le dépôt GitHub :
 ```bash
+
 git clone https://github.com/votre-utilisateur/Exercice-ETL-Clement-Raphael.git
+
 cd Exercice-ETL-Clement-Raphael
 ```
 ---
@@ -142,6 +144,7 @@ Certaines fonctionnalités nécessitent des clés ou des configurations spécifi
    touch .env
    ```
 
+=======
 # 📜 Conclusion
 
 ---
@@ -173,8 +176,6 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 ## Licence
 
 Ce projet a été réaslisé pour rendu en école.
-
-
 
 
 

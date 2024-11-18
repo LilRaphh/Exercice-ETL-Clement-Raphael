@@ -165,7 +165,7 @@ class Scrapping:
     def scrap_site(self) -> list:
         """
         Va chercher des informations sur le site infoclimat afin de récupéré les données en temps réél de la météo de rennes. 
-        Récypère toutes les data de la page active. 
+        Récupère toutes les data de la page active. 
 
         Scrap:
         - Selenium
