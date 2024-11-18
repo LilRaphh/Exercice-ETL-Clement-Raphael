@@ -69,7 +69,7 @@ Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votr
 ## **Étape 1 : Cloner le dépôt**
 Téléchargez le code source de ce projet depuis le dépôt GitHub :
 ```bash
-git clone https://github.com/votre-utilisateur/nom-du-projet.git
+git clone https://github.com/votre-utilisateur/Exercice-ETL-Clement-Raphael.git
 cd Exercice-ETL-Clement-Raphael
 ```
 ---
