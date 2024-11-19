@@ -14,11 +14,11 @@
 ### Bibliothèques de Données & Machine Learning
 
 ![Pandas](https://img.shields.io/badge/Pandas-1.5.2-brightgreen?logo=pandas&logoColor=white)
-![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff&style=for-the-badge)
+![MySQL](https://img.shields.io/badge/MySQL-8.4-brightgreen?logo=mysql&logoColor=white)
 
 ### Outils de Visualisation
 
-![Apache Superset Badge](https://img.shields.io/badge/Apache%20Superset-20A6C9?logo=apachesuperset&logoColor=fff&style=for-the-badge)
+![Apache Superset Badge](https://img.shields.io/badge/Apache%20Superset-4.1.0-brightgreen?logo=apachesuperset&logoColor=white)
 
 ## Introduction au Projet
 ---
@@ -138,8 +138,6 @@ Maintenant lancer le docker compose de notre superset.
   ```bash
   docker compose -f docker-compose-non-dev.yml up -d
   ```
-
-
 
 =======
 # 📜 Conclusion
