@@ -139,13 +139,15 @@ Maintenant lancer le docker compose de notre superset.
   docker compose -f docker-compose-non-dev.yml up -d
   ```
 
-## **Étape 5 : Initialiser les données dans la base de donnée **
+## **Étape 5 : Initialiser les données dans la base de donnée**
 
 1. **Lancer le script python**:
 
 Pour inserer les données dans la base de donnée, un script est fais pour cela. Ce script va aller scraper et récupérer les données.
 
 Pour lancer ce script, vérifier que vous etes bien dans l'environnement virtuel 
+
+![image](https://github.com/user-attachments/assets/0a0567de-1d69-4af9-80ae-2477a695d8a6)
 
 Ici on peut voir qu'on est dans notre environnement virtuel grace à notre 'env'
 
@@ -168,12 +170,12 @@ Pour cela nous avons une interface web minimaliste qui est Adminer.
 **Se rendre sur le site**
 Pour se rendre sur l'interface web il faut aller sur l'url suivante: 
 
-http://<ip de votre machine>:8080/
+```http://<ip-de-ma-machine>:8080/ ```
 
 Une fois sur l'interface web, si votre contenaire docker est bien run (Etape 3)
 vous devriez arriver sur cette page:
 
-(image de la page)
+![image](https://github.com/user-attachments/assets/89ef9366-5048-4ce0-835b-aa025bae6d27)
 
 Les identifiants de connexion sont les suivants: 
 
