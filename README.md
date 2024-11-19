@@ -14,10 +14,11 @@
 ### Bibliothèques de Données & Machine Learning
 
 ![Pandas](https://img.shields.io/badge/Pandas-1.5.2-brightgreen?logo=pandas&logoColor=white)
+![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff&style=for-the-badge)
 
 ### Outils de Visualisation
 
-![Superset](https://img.shields.io/badge/SuperSet-version-blue?logo=Superset$logoColor=white)
+![Apache Superset Badge](https://img.shields.io/badge/Apache%20Superset-20A6C9?logo=apachesuperset&logoColor=fff&style=for-the-badge)
 
 ## Introduction au Projet
 ---
@@ -47,7 +48,7 @@ Ce projet vise à combiner les données d'un site météo (infoclimat) ainsi que
 
 3. **Envoie des données vers la base de donnée**
 
-  - Envoie des données vers la base de données Postgres SQL à partir de scripts Python.
+  - Envoie des données vers la base de données mySql à partir de scripts Python.
 
 4. **Visualisation et Analyse**
 
@@ -78,7 +79,7 @@ cd Exercice-ETL-Clement-Raphael
 
 ## **Étape 2 : Configurer l'environnement Python**
 
-1. **Créer un environnement virtuel** (recommandé pour isoler les dépendances du projet) :
+1. **Créer un environnement virtuel et l'activer** (recommandé pour isoler les dépendances du projet) :
    - Sur Unix/macOS :
      ```bash
      python3 -m venv venv
@@ -100,49 +101,45 @@ cd Exercice-ETL-Clement-Raphael
 ## **Étape 3 : Configurer Docker pour les services**
 Certains services, comme les bases de données ou les outils de visualisation, peuvent être exécutés à l'aide de Docker.
 
-1. **Configurer le fichier `docker-compose.yml`** (si applicable) :
-   - Modifiez les paramètres si nécessaire, par exemple, les ports ou les chemins des volumes.
+1. **Aller dans le bon dossier** (si applicable) :
+   - Le premier docker à lancer est le docker compose qui est dans le dossier data engeneering. Celui ci va up la base de donnée.
    - Exemple :
-     ```yaml
-     version: '3.8'
-     services:
-       database:
-         image: postgres:latest
-         container_name: my_postgres_db
-         ports:
-           - "5432:5432"
-         environment:
-           POSTGRES_USER: admin
-           POSTGRES_PASSWORD: password
-           POSTGRES_DB: my_database
-         volumes:
-           - db_data:/var/lib/postgresql/data
-       superset:
-         image: apache/superset:latest
-         container_name: superset_app
-         ports:
-           - "8088:8088"
-         environment:
-           SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
-         volumes:
-           - ./superset_config:/app/pythonpath
-     volumes:
-       db_data:
+     ```bash
+      cd data_engeneering     
      ```
 
 2. **Lancer Docker** :
    ```bash
-   docker-compose up -d
+   docker-compose up --build -d
    ```
 
-## **Étape 4 : Configurer les Variables d’Environnement**
+## **Étape 3 : Initialiser le superset (la visualisation)**
 
-Certaines fonctionnalités nécessitent des clés ou des configurations spécifiques. Celles-ci peuvent être centralisées dans un fichier .env.
+Pour la visualisation nous utilisons superset. 
 
-**Créer un fichier .env:**
+**Aller dans le dossier racine du projet**
+
+**Lancer la commande get_superset_repo.sh**
+Cela va cloner le projet superset dans un dossier DataViz
+
    ```bash
-   touch .env
+    .\get_superset_repo.sh 
    ```
+
+**Lancer le docker superset**
+Une fois le clone du repo fini aller dans le dossier dataViz
+
+  ```bash
+  cd DataViz
+  ```
+
+Maintenant lancer le docker compose de notre superset.
+
+  ```bash
+  docker compose -f docker-compose-non-dev.yml up -d
+  ```
+
+
 
 =======
 # 📜 Conclusion
