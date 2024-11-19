@@ -179,11 +179,11 @@ vous devriez arriver sur cette page:
 
 Les identifiants de connexion sont les suivants: 
 
-Système         : MySQL
-server          : db
-utilisateur     : root
-Mot de passe    : admin
-Base de données : ETL
+- Système         : MySQL
+- server          : db
+- utilisateur     : root
+- Mot de passe    : admin
+- Base de données : ETL
 
 
 =======
