@@ -70,13 +70,20 @@ class TransformData:
             # Convertir en string si nécessaire
             df[column] = df[column].astype(str)
 
-            # Supprimer les symboles monétaires et convertir les nombres
+            # Supprimer les symboles monétaires (€, $, £) et autres caractères non numériques
             df[column] = df[column] \
-                .str.replace('[€,$,£,hPa,km,%]', '', regex=True) \
-                .str.replace(',', '.') \
-                .str.split(' ').str[0] 
+                .str.replace(r'[€$£]', '', regex=True) \
+                .str.replace(r'[^\d.,-]', '', regex=True) \
+                .str.replace(r'\n\n=', '', regex=True)
+
+            # Remplacer les virgules par des points pour les décimales
+            df[column] = df[column].str.replace(',', '.')
+
+            # Convertir en float
+            df[column] = pd.to_numeric(df[column], errors='coerce')  # Coerce les valeurs invalides en NaN
 
         return df
+
 
 
     def to_lowercase(self, df, column):
