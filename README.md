@@ -211,8 +211,8 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 
 ## Amélioration future
 ---
-  **-Machine learning:** l'ajout de machine learning pour pouvoir avoir une prédiction des données, que ce soit pour la météo mais aussi du nombre de passage en prenant en compte la météo prédite.
-  **-Airflow:** Création d'une automatisation avec Airflow serait un très bon ajout pour le projet
+  -Machine learning: l'ajout de machine learning pour pouvoir avoir une prédiction des données, que ce soit pour la météo mais aussi du nombre de passage en prenant en compte la météo prédite.
+  -Airflow: Création d'une automatisation avec Airflow serait un très bon ajout pour le projet
 
 
 ## Contributeurs
