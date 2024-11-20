@@ -14,10 +14,11 @@
 ### Bibliothèques de Données & Machine Learning
 
 ![Pandas](https://img.shields.io/badge/Pandas-1.5.2-brightgreen?logo=pandas&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.4-brightgreen?logo=mysql&logoColor=white)
 
 ### Outils de Visualisation
 
-![Superset](https://img.shields.io/badge/SuperSet-version-blue?logo=Superset$logoColor=white)
+![Apache Superset Badge](https://img.shields.io/badge/Apache%20Superset-4.1.0-brightgreen?logo=apachesuperset&logoColor=white)
 
 ## Introduction au Projet
 ---
@@ -31,7 +32,9 @@ Ce projet vise à combiner les données d'un site météo (infoclimat) ainsi que
 ## Architecture du Projet
 ---
 
-<img width="725" alt="Capture d’écran 2024-11-15 à 15 15 31" src="https://github.com/user-attachments/assets/a07471d4-3756-4139-9e65-8cde17b39086">
+
+<img width="753" alt="image" src="https://github.com/user-attachments/assets/2ed879ef-a89e-4e3a-ac97-429ba563881d">
+
 
 ## Workflow et schéma d'architecture
 
@@ -47,7 +50,7 @@ Ce projet vise à combiner les données d'un site météo (infoclimat) ainsi que
 
 3. **Envoie des données vers la base de donnée**
 
-  - Envoie des données vers la base de données Postgres SQL à partir de scripts Python.
+  - Envoie des données vers la base de données mySql à partir de scripts Python.
 
 4. **Visualisation et Analyse**
 
@@ -78,7 +81,7 @@ cd Exercice-ETL-Clement-Raphael
 
 ## **Étape 2 : Configurer l'environnement Python**
 
-1. **Créer un environnement virtuel** (recommandé pour isoler les dépendances du projet) :
+1. **Créer un environnement virtuel et l'activer** (recommandé pour isoler les dépendances du projet) :
    - Sur Unix/macOS :
      ```bash
      python3 -m venv venv
@@ -100,49 +103,90 @@ cd Exercice-ETL-Clement-Raphael
 ## **Étape 3 : Configurer Docker pour les services**
 Certains services, comme les bases de données ou les outils de visualisation, peuvent être exécutés à l'aide de Docker.
 
-1. **Configurer le fichier `docker-compose.yml`** (si applicable) :
-   - Modifiez les paramètres si nécessaire, par exemple, les ports ou les chemins des volumes.
+1. **Aller dans le bon dossier** (si applicable) :
+   - Le premier docker à lancer est le docker compose qui est dans le dossier data engeneering. Celui ci va up la base de donnée.
    - Exemple :
-     ```yaml
-     version: '3.8'
-     services:
-       database:
-         image: postgres:latest
-         container_name: my_postgres_db
-         ports:
-           - "5432:5432"
-         environment:
-           POSTGRES_USER: admin
-           POSTGRES_PASSWORD: password
-           POSTGRES_DB: my_database
-         volumes:
-           - db_data:/var/lib/postgresql/data
-       superset:
-         image: apache/superset:latest
-         container_name: superset_app
-         ports:
-           - "8088:8088"
-         environment:
-           SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
-         volumes:
-           - ./superset_config:/app/pythonpath
-     volumes:
-       db_data:
+     ```bash
+      cd data_engeneering     
      ```
 
 2. **Lancer Docker** :
    ```bash
-   docker-compose up -d
+   docker-compose up --build -d
    ```
 
-## **Étape 4 : Configurer les Variables d’Environnement**
+## **Étape 4 : Initialiser le superset (la visualisation)**
 
-Certaines fonctionnalités nécessitent des clés ou des configurations spécifiques. Celles-ci peuvent être centralisées dans un fichier .env.
+Pour la visualisation nous utilisons superset. 
 
-**Créer un fichier .env:**
+**Aller dans le dossier racine du projet**
+
+**Lancer la commande get_superset_repo.sh**
+Cela va cloner le projet superset dans un dossier DataViz
+
    ```bash
-   touch .env
+    .\get_superset_repo.sh 
    ```
+
+**Lancer le docker superset**
+Une fois le clone du repo fini aller dans le dossier dataViz
+
+  ```bash
+  cd DataViz
+  ```
+
+Maintenant lancer le docker compose de notre superset.
+
+  ```bash
+  docker compose -f docker-compose-non-dev.yml up -d
+  ```
+
+## **Étape 5 : Initialiser les données dans la base de donnée**
+
+1. **Lancer le script python**:
+
+Pour inserer les données dans la base de donnée, un script est fais pour cela. Ce script va aller scraper et récupérer les données.
+
+Pour lancer ce script, vérifier que vous etes bien dans l'environnement virtuel 
+
+![image](https://github.com/user-attachments/assets/0a0567de-1d69-4af9-80ae-2477a695d8a6)
+
+Ici on peut voir qu'on est dans notre environnement virtuel grace à notre 'env'
+
+**Allez dans le dossier ETL**:
+
+  ```bash
+  cd ETL
+  ```
+
+**Lancer le script**
+
+  ```bash
+  python init_db_etl.py
+  ```
+
+## **Étape 6 : Vérification des données dans la base de donnée**
+
+Pour cela nous avons une interface web minimaliste qui est Adminer. 
+
+**Se rendre sur le site**
+Pour se rendre sur l'interface web il faut aller sur l'url suivante: 
+
+```http://<ip-de-ma-machine>:8080/ ```
+
+Une fois sur l'interface web, si votre contenaire docker est bien run (Etape 3)
+vous devriez arriver sur cette page:
+
+![image](https://github.com/user-attachments/assets/89ef9366-5048-4ce0-835b-aa025bae6d27)
+
+Les identifiants de connexion sont les suivants: 
+
+- Système         : MySQL
+- server          : db
+- utilisateur     : root
+- Mot de passe    : admin
+- Base de données : ETL
+
 
 =======
 # 📜 Conclusion
@@ -159,12 +203,19 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 
 🚧 Difficultés Rencontrées
 
-  texte
+  -Le choix des données: Le choix de sources de données a été compliqué, il fallait trouver des données ayant un lien fort et en corrélation avec le sujet du projet. 
+  
+  -La qualité des données: Lors de la Visualisation des data on s'est rendu compte que les données étaient trop disparates, il est donc difficile de pouvoir en tirer de nombreuses informations
+  
+  -La différence de support au sein du binôme: Nous n'étions pas sur le même OS ce qui a pu poser problème lors de l'installation de certains packages. 
+  
 
 
 ## Amélioration future
 ---
+  -Machine learning: l'ajout de machine learning pour pouvoir avoir une prédiction des données, que ce soit pour la météo mais aussi du nombre de passage en prenant en compte la météo prédite.
   
+  -Airflow: Création d'une automatisation avec Airflow serait un très bon ajout pour le projet
 
 
 ## Contributeurs
@@ -175,7 +226,7 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 
 ## Licence
 
-Ce projet a été réaslisé pour rendu en école.
+Ce projet a été réalisé pour rendu en école Sup de Vinci.
 
 
 

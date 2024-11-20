@@ -72,7 +72,7 @@ class TransformData:
 
             # Supprimer les symboles monétaires et convertir les nombres
             df[column] = df[column] \
-                .str.replace('[€,$,£,hPa,km,%]', '', regex=True) \
+                .str.replace('[€,$,£,hPa,km,%,\n\n=]', '', regex=True) \
                 .str.replace(',', '.') \
                 .str.split(' ').str[0] 
 
