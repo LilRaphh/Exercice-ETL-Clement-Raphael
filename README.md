@@ -223,7 +223,7 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 
 ## Licence
 
-Ce projet a été réaslisé pour rendu en école.
+Ce projet a été réalisé pour rendu en école Sup de Vinci.
 
 
 
