@@ -204,7 +204,9 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 🚧 Difficultés Rencontrées
 
   -Le choix des données: Le choix de sources de données a été compliqué, il fallait trouver des données ayant un lien fort et en corrélation avec le sujet du projet. 
+  
   -La qualité des données: Lors de la Visualisation des data on s'est rendu compte que les données étaient trop disparates, il est donc difficile de pouvoir en tirer de nombreuses informations
+  
   -La différence de support au sein du binôme: Nous n'étions pas sur le même OS ce qui a pu poser problème lors de l'installation de certains packages. 
   
 
@@ -212,6 +214,7 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 ## Amélioration future
 ---
   -Machine learning: l'ajout de machine learning pour pouvoir avoir une prédiction des données, que ce soit pour la météo mais aussi du nombre de passage en prenant en compte la météo prédite.
+  
   -Airflow: Création d'une automatisation avec Airflow serait un très bon ajout pour le projet
 
 
