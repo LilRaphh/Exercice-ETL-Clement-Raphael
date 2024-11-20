@@ -32,7 +32,9 @@ Ce projet vise à combiner les données d'un site météo (infoclimat) ainsi que
 ## Architecture du Projet
 ---
 
-<img width="725" alt="Capture d’écran 2024-11-15 à 15 15 31" src="https://github.com/user-attachments/assets/a07471d4-3756-4139-9e65-8cde17b39086">
+
+<img width="753" alt="image" src="https://github.com/user-attachments/assets/2ed879ef-a89e-4e3a-ac97-429ba563881d">
+
 
 ## Workflow et schéma d'architecture
 
@@ -163,7 +165,7 @@ Ici on peut voir qu'on est dans notre environnement virtuel grace à notre 'env'
   python init_db_etl.py
   ```
 
-## **Étape 6 : Vérification des données dans la base de donnée **
+## **Étape 6 : Vérification des données dans la base de donnée**
 
 Pour cela nous avons une interface web minimaliste qui est Adminer. 
 
@@ -201,12 +203,16 @@ En conclusion, cette solution démontre comment des données disparates peuvent 
 
 🚧 Difficultés Rencontrées
 
-  texte
+  -Le choix des données: Le choix de sources de données a été compliqué, il fallait trouver des données ayant un lien fort et en corrélation avec le sujet du projet. 
+  -La qualité des données: Lors de la Visualisation des data on s'est rendu compte que les données étaient trop disparates, il est donc difficile de pouvoir en tirer de nombreuses informations
+  -La différence de support au sein du binôme: Nous n'étions pas sur le même OS ce qui a pu poser problème lors de l'installation de certains packages. 
+  
 
 
 ## Amélioration future
 ---
-  
+  **-Machine learning:** l'ajout de machine learning pour pouvoir avoir une prédiction des données, que ce soit pour la météo mais aussi du nombre de passage en prenant en compte la météo prédite.
+  **-Airflow :** Création d'une automatisation avec Airflow serait un très bon ajout pour le projet
 
 
 ## Contributeurs
